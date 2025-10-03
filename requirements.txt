@@ -1,0 +1,20 @@
+# ==============================================================================
+# Dependencias del Proyecto - Análisis de Videojuegos
+# ==============================================================================
+
+# Análisis de datos
+pandas==2.1.4
+numpy==1.26.2
+
+# Visualización
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# Utilidades
+openpyxl==3.1.2
+xlrd==2.0.1
+
+# Jupyter (opcional, para desarrollo interactivo)
+jupyter==1.0.0
+notebook==7.0.6
+ipykernel==6.27.1

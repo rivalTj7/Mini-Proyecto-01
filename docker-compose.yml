@@ -1,0 +1,40 @@
+# ==============================================================================
+# Docker Compose - Análisis de Videojuegos
+# ==============================================================================
+version: '3.8'
+
+services:
+  # Servicio principal de análisis
+  analisis-videojuegos:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: videogame_analysis
+    volumes:
+      # Montar carpeta de datos (donde está vgsales.csv)
+      - ./data:/app/data
+      # Montar carpeta de salida (para gráficas y reportes)
+      - ./output:/app/output
+      # Montar código para desarrollo en vivo
+      - ./analisis_videojuegos.py:/app/analisis_videojuegos.py
+    environment:
+      - DATASET_PATH=/app/data/vgsales.csv
+      - OUTPUT_PATH=/app/output
+    restart: unless-stopped
+    
+  # Servicio Jupyter Notebook (opcional, para exploración interactiva)
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: videogame_jupyter
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./notebooks:/app/notebooks
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    restart: unless-stopped

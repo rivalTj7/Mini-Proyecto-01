@@ -1,0 +1,46 @@
+# ==============================================================================
+# .dockerignore - Archivos a excluir del build de Docker
+# ==============================================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+
+# Datos grandes (se montan como volúmenes)
+data/
+output/
+*.csv
+*.xlsx
+*.png
+*.jpg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
