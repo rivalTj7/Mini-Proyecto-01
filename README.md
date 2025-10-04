@@ -1,11 +1,11 @@
-# 🎮 Análisis de Videojuegos - Proyecto Dockerizado
+# Análisis de Videojuegos - Proyecto Dockerizado
 
-## 📋 Descripción
+## Descripción
 Proyecto de análisis de datos de videojuegos completamente dockerizado para garantizar portabilidad y no consumir recursos locales.
 
 ---
 
-## 🗂️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 proyecto-videojuegos/
@@ -15,16 +15,7 @@ proyecto-videojuegos/
 ├── requirements.txt              # Dependencias Python
 ├── Makefile                      # Comandos simplificados
 ├── .dockerignore                 # Archivos excluidos del build
-├── analisis_videojuegos.py       # Script principal de análisis
-│
-├── data/                         # 📂 Dataset (crear manualmente)
-│   └── vgsales.csv              # ⚠️ Descargar de Kaggle
-│
-├── output/                       # 📂 Resultados generados
-│   └── analisis_videojuegos.png # Gráficas generadas
-│
-└── notebooks/                    # 📂 Jupyter notebooks (opcional)
-    └── exploracion.ipynb
+├── main.py       # Script principal de análisis
 ```
 
 ---
@@ -38,25 +29,13 @@ proyecto-videojuegos/
 make setup
 ```
 
-### **Paso 2: Descargar dataset**
-
-1. Ve a [Kaggle - Video Game Sales](https://www.kaggle.com/datasets/gregorut/videogamesales)
-2. Descarga `vgsales.csv`
-3. Colócalo en la carpeta `data/`
-
-```bash
-proyecto-videojuegos/
-└── data/
-    └── vgsales.csv  ✅
-```
-
-### **Paso 3: Construir imagen Docker**
+### **Paso 2: Construir imagen Docker**
 
 ```bash
 make build
 ```
 
-### **Paso 4: Ejecutar análisis**
+### **Paso 3: Ejecutar análisis**
 
 ```bash
 make run
@@ -91,7 +70,7 @@ make run
 
 ---
 
-## 🐳 Uso con Docker (sin Makefile)
+## Uso con Docker (sin Makefile)
 
 Si prefieres usar comandos Docker directamente:
 
