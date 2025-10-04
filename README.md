@@ -170,37 +170,12 @@ make build
 
 ## 🆘 Solución de Problemas
 
-### **Error: Dataset no encontrado**
-```bash
-# Verifica que vgsales.csv esté en data/
-ls data/vgsales.csv
-```
-
 ### **Error: Puerto 8888 ocupado**
 ```bash
 # Cambiar puerto de Jupyter
 docker run -p 8889:8888 ...
 # Acceder en http://localhost:8889
 ```
-
-### **Limpiar todo y empezar de nuevo**
-```bash
-make clean
-make clean-output
-make setup
-make build
-make run
-```
-
----
-
-## 📚 Requisitos
-
-- **Docker** instalado ([Descargar aquí](https://www.docker.com/get-started))
-- **Docker Compose** (incluido en Docker Desktop)
-- **Make** (opcional, para comandos simplificados)
-  - Linux/Mac: Viene preinstalado
-  - Windows: Instalar con chocolatey `choco install make`
 
 ---
 
@@ -212,18 +187,6 @@ make run
 4. ✅ Ejecutar `make build`
 5. ✅ Ejecutar `make run`
 6. ✅ Revisar resultados en `output/`
-
----
-
-## 📄 Licencia
-
-Proyecto educativo - Mini Proyecto #01 de Curso de Python
-
----
-
-## 👨‍💻 Autor
-
-Estudiante de Python - Octubre 2025
 
 ---
 
