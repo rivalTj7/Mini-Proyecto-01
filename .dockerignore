@@ -1,7 +1,3 @@
-# ==============================================================================
-# .dockerignore - Archivos a excluir del build de Docker
-# ==============================================================================
-
 # Python
 __pycache__/
 *.py[cod]
@@ -30,7 +26,7 @@ build/
 .git/
 .gitignore
 
-# Datos grandes (se montan como volúmenes)
+# Datos grandes
 data/
 output/
 *.csv

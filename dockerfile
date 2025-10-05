@@ -1,13 +1,5 @@
-# ==============================================================================
-# Dockerfile para Análisis de Videojuegos
-# ==============================================================================
-# Imagen base: Python 3.11 slim (ligera y eficiente)
-FROM python:3.11-slim
 
-# Información del mantenedor
-LABEL maintainer="estudiante@proyecto.com"
-LABEL description="Análisis de Videojuegos - Mini Proyecto Python"
-LABEL version="1.0"
+FROM python:3.11-slim
 
 # Variables de entorno para Python
 ENV PYTHONUNBUFFERED=1 \

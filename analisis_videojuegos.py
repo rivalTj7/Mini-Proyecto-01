@@ -1,19 +1,7 @@
 """
-================================================================================
 MINI PROYECTO #01: ANÁLISIS DE VIDEOJUEGOS
-================================================================================
-Estudiante: [Tu Nombre]
-Fecha: Octubre 2025
-Dataset: Video Game Sales (Kaggle)
-
-Objetivo: Analizar tendencias de ventas de videojuegos mediante técnicas de
-limpieza, exploración y visualización de datos.
-================================================================================
 """
 
-# =============================================================================
-# 1. IMPORTACIÓN DE LIBRERÍAS
-# =============================================================================
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,19 +9,17 @@ import seaborn as sns
 from datetime import datetime
 import warnings
 
-# Configuración inicial
 warnings.filterwarnings('ignore')
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', 100)
 
-print("✓ Librerías importadas correctamente")
 print(f"Fecha de análisis: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
 # =============================================================================
-# 2. HIPÓTESIS DEL PROYECTO
+# HIPÓTESIS DEL PROYECTO
 # =============================================================================
 """
 HIPÓTESIS A VALIDAR:
@@ -45,47 +31,32 @@ H4: Existe diferencia significativa en preferencias de género entre regiones
 
 
 # =============================================================================
-# 3. CARGA DE DATOS
+# CARGA DE DATOS
 # =============================================================================
 def cargar_dataset(ruta_archivo):
     """
     Carga el dataset y muestra información básica inicial.
-    
-    Parámetros:
-    -----------
-    ruta_archivo : str
-        Ruta al archivo CSV del dataset
-    
-    Retorna:
-    --------
-    df : DataFrame
-        Dataset cargado
     """
     try:
         df = pd.read_csv(ruta_archivo)
-        print(f"✓ Dataset cargado exitosamente")
-        print(f"  Dimensiones: {df.shape[0]} filas x {df.shape[1]} columnas")
+        print(f"Dataset cargado exitosamente")
+        print(f"Dimensiones: {df.shape[0]} filas x {df.shape[1]} columnas")
         print(f"\nColumnas disponibles:\n{df.columns.tolist()}")
         return df
     except FileNotFoundError:
-        print("✗ Error: Archivo no encontrado. Verifica la ruta.")
+        print("Error: Archivo no encontrado. Verifica la ruta.")
         return None
     except Exception as e:
-        print(f"✗ Error al cargar datos: {e}")
+        print(f"Error al cargar datos: {e}")
         return None
 
 
 # =============================================================================
-# 4. EXPLORACIÓN INICIAL
+# EXPLORACIÓN INICIAL
 # =============================================================================
 def exploracion_inicial(df):
     """
     Realiza exploración inicial del dataset.
-    
-    Parámetros:
-    -----------
-    df : DataFrame
-        Dataset a explorar
     """
     print("\n" + "="*80)
     print("EXPLORACIÓN INICIAL DEL DATASET")
@@ -96,7 +67,7 @@ def exploracion_inicial(df):
     print(df.info())
     
     # Primeras filas
-    print("\n--- Primeras 5 filas ---")
+    print("\n--- Primeras filas ---")
     print(df.head())
     
     # Estadísticas descriptivas
@@ -122,21 +93,11 @@ def exploracion_inicial(df):
 
 
 # =============================================================================
-# 5. LIMPIEZA DE DATOS
+# LIMPIEZA DE DATOS
 # =============================================================================
 def limpiar_datos(df):
     """
     Realiza limpieza completa del dataset.
-    
-    Parámetros:
-    -----------
-    df : DataFrame
-        Dataset a limpiar
-    
-    Retorna:
-    --------
-    df_limpio : DataFrame
-        Dataset limpio
     """
     print("\n" + "="*80)
     print("PROCESO DE LIMPIEZA DE DATOS")
@@ -156,7 +117,7 @@ def limpiar_datos(df):
         df_limpio[col] = df_limpio[col].str.strip()
     print(f"✓ Espacios en blanco eliminados en {len(columnas_texto)} columnas")
     
-    # 3. Manejo de valores nulos (específico para video game sales)
+    # 3. Manejo de valores nulos
     # Year: convertir a int y manejar NaN
     if 'Year' in df_limpio.columns:
         df_limpio['Year'] = pd.to_numeric(df_limpio['Year'], errors='coerce')
@@ -170,7 +131,7 @@ def limpiar_datos(df):
         df_limpio = df_limpio.dropna(subset=['Publisher'])
         print(f"✓ Filas con Publisher nulo eliminadas: {nulos_publisher}")
     
-    # 4. Validar rangos de años (solo años válidos)
+    # 4. Validar rangos de años
     if 'Year' in df_limpio.columns:
         año_actual = datetime.now().year
         df_limpio = df_limpio[
@@ -179,7 +140,7 @@ def limpiar_datos(df):
         ]
         print(f"✓ Años validados (1980-{año_actual})")
     
-    # 5. Validar valores de ventas (no negativos)
+    # 5. Validar valores de ventas
     columnas_ventas = [col for col in df_limpio.columns if 'Sales' in col]
     for col in columnas_ventas:
         valores_negativos = (df_limpio[col] < 0).sum()
@@ -207,16 +168,11 @@ def limpiar_datos(df):
 
 
 # =============================================================================
-# 6. ANÁLISIS EXPLORATORIO DE DATOS (EDA)
+# ANÁLISIS EXPLORATORIO DE DATOS 
 # =============================================================================
 def analisis_exploratorio(df):
     """
     Realiza análisis exploratorio detallado.
-    
-    Parámetros:
-    -----------
-    df : DataFrame
-        Dataset limpio
     """
     print("\n" + "="*80)
     print("ANÁLISIS EXPLORATORIO DE DATOS")
@@ -256,16 +212,11 @@ def analisis_exploratorio(df):
 
 
 # =============================================================================
-# 7. VISUALIZACIONES
+# VISUALIZACIONES
 # =============================================================================
 def crear_visualizaciones(df):
     """
     Crea visualizaciones profesionales del análisis.
-    
-    Parámetros:
-    -----------
-    df : DataFrame
-        Dataset limpio
     """
     print("\n" + "="*80)
     print("GENERANDO VISUALIZACIONES")
@@ -321,7 +272,7 @@ def crear_visualizaciones(df):
         ax4.tick_params(axis='x', rotation=45)
         ax4.grid(axis='y', alpha=0.3)
     
-    # 5. Distribución de Ventas (Histograma)
+    # 5. Distribución de Ventas
     if 'Global_Sales' in df.columns:
         ax5 = plt.subplot(2, 3, 5)
         # Filtrar valores extremos para mejor visualización
@@ -332,7 +283,7 @@ def crear_visualizaciones(df):
         ax5.set_ylabel('Frecuencia')
         ax5.grid(axis='y', alpha=0.3)
     
-    # 6. Ventas por Región (si están disponibles)
+    # 6. Ventas por Región
     columnas_regiones = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']
     if all(col in df.columns for col in columnas_regiones):
         ax6 = plt.subplot(2, 3, 6)
@@ -357,21 +308,16 @@ def crear_visualizaciones(df):
         save_path = 'output/analisis_videojuegos.png'
     
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
-    print(f"✓ Visualizaciones guardadas en '{save_path}'")
+    print(f"Visualizaciones guardadas en '{save_path}'")
     plt.show()
 
 
 # =============================================================================
-# 8. ANÁLISIS DE HIPÓTESIS
+# ANÁLISIS DE HIPÓTESIS
 # =============================================================================
 def validar_hipotesis(df):
     """
     Valida las hipótesis planteadas con los datos.
-    
-    Parámetros:
-    -----------
-    df : DataFrame
-        Dataset limpio
     """
     print("\n" + "="*80)
     print("VALIDACIÓN DE HIPÓTESIS")
@@ -387,9 +333,9 @@ def validar_hipotesis(df):
         print(f"Ventas totales: ${ventas_top:.2f}M")
         print(f"Porcentaje del total: {(ventas_top/df['Global_Sales'].sum())*100:.2f}%")
         if genero_top == 'Action':
-            print("✓ HIPÓTESIS CONFIRMADA: Action es el género con mayores ventas")
+            print("HIPÓTESIS CONFIRMADA: Action es el género con mayores ventas")
         else:
-            print(f"✗ HIPÓTESIS RECHAZADA: {genero_top} es el género con mayores ventas")
+            print(f"HIPÓTESIS RECHAZADA: {genero_top} es el género con mayores ventas")
     
     # H2: Tendencia temporal
     if 'Year' in df.columns and 'Global_Sales' in df.columns:
@@ -399,9 +345,9 @@ def validar_hipotesis(df):
         correlacion = ventas_año.corr(pd.Series(ventas_año.index))
         print(f"Correlación año-ventas: {correlacion:.3f}")
         if correlacion > 0:
-            print("✓ TENDENCIA CRECIENTE detectada")
+            print("TENDENCIA CRECIENTE detectada")
         else:
-            print("✗ TENDENCIA DECRECIENTE detectada")
+            print("TENDENCIA DECRECIENTE detectada")
     
     # H3: Concentración en Publishers
     if 'Publisher' in df.columns and 'Global_Sales' in df.columns:
@@ -415,22 +361,17 @@ def validar_hipotesis(df):
         for i, (pub, ventas) in enumerate(ventas_publisher.head(5).items(), 1):
             print(f"  {i}. {pub}: ${ventas:.2f}M")
         if concentracion > 30:
-            print("✓ HIPÓTESIS CONFIRMADA: Alta concentración de mercado")
+            print("HIPÓTESIS CONFIRMADA: Alta concentración de mercado")
         else:
-            print("✗ HIPÓTESIS RECHAZADA: Baja concentración de mercado")
+            print("HIPÓTESIS RECHAZADA: Baja concentración de mercado")
 
 
 # =============================================================================
-# 9. CONCLUSIONES Y REPORTE
+# CONCLUSIONES Y REPORTE
 # =============================================================================
 def generar_conclusiones(df):
     """
     Genera conclusiones finales del análisis.
-    
-    Parámetros:
-    -----------
-    df : DataFrame
-        Dataset limpio
     """
     print("\n" + "="*80)
     print("CONCLUSIONES DEL ANÁLISIS")
@@ -458,16 +399,6 @@ def generar_conclusiones(df):
     5. DIFERENCIAS REGIONALES:
        - Las preferencias varían significativamente entre regiones
        - Norteamérica, Europa y Japón muestran patrones distintos
-    
-    RECOMENDACIONES:
-    - Para desarrolladores: Enfocarse en géneros y plataformas probadas
-    - Para inversores: Considerar publishers establecidos con historial
-    - Para investigadores: Profundizar en análisis de preferencias regionales
-    
-    LIMITACIONES DEL ESTUDIO:
-    - Dataset limitado a juegos con >100,000 copias vendidas
-    - Datos hasta 2016, no incluye tendencias más recientes
-    - No incluye ventas digitales modernas (Steam, Epic, etc.)
     """)
     
     print(f"\nAnálisis completado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -475,7 +406,7 @@ def generar_conclusiones(df):
 
 
 # =============================================================================
-# 10. FUNCIÓN PRINCIPAL
+# FUNCIÓN PRINCIPAL
 # =============================================================================
 def main():
     """
@@ -487,17 +418,16 @@ def main():
     print("="*80)
     
     # PASO 1: Cargar datos
-    # Detectar si estamos en Docker o local
     import os
     if os.path.exists('/app/data/vgsales.csv'):
-        ruta_dataset = '/app/data/vgsales.csv'  # Ruta en Docker
+        ruta_dataset = '/app/data/vgsales.csv'
     else:
-        ruta_dataset = 'data/vgsales.csv'  # Ruta local
+        ruta_dataset = 'data/vgsales.csv'
     
     df = cargar_dataset(ruta_dataset)
     
     if df is None:
-        print("\n⚠️  No se pudo cargar el dataset.")
+        print("\n No se pudo cargar el dataset.")
         print("Por favor, descarga el dataset de Kaggle y actualiza la ruta.")
         return
     
@@ -513,7 +443,7 @@ def main():
     # PASO 5: Visualizaciones
     crear_visualizaciones(df_limpio)
     
-    # Guardar en la ruta correcta (Docker o local)
+    # Guardar en la ruta correcta
     import os
     if os.path.exists('/app/output'):
         output_path = '/app/output/analisis_videojuegos.png'
@@ -532,19 +462,12 @@ def main():
     # Mensaje según entorno
     import os
     if os.path.exists('/app/output'):
-        print("✓ Revisa el archivo en el contenedor: /app/output/analisis_videojuegos.png")
-        print("✓ En tu sistema está en: ./output/analisis_videojuegos.png")
+        print("Revisa el archivo en el contenedor: /app/output/analisis_videojuegos.png")
+        print("En tu sistema está en: ./output/analisis_videojuegos.png")
     else:
-        print("✓ Revisa el archivo 'output/analisis_videojuegos.png'")
+        print("Revisa el archivo 'output/analisis_videojuegos.png'")
     
     return df_limpio
 
-
-# =============================================================================
-# EJECUCIÓN DEL PROGRAMA
-# =============================================================================
 if __name__ == "__main__":
-    # Ejecutar análisis completo
     df_final = main()
-    
-    # El DataFrame limpio queda disponible como 'df_final' para análisis adicional
